@@ -12,4 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f600dbdb40b9fab408376c70098d26eb, type: 3}
   m_Name: Standart
   m_EditorClassIdentifier: 
-  BallMaterials: {fileID: 0}
+  BallMaterials:
+  - {fileID: 2100000, guid: 52f0c5488df332d4ba297219f5a5a788, type: 2}
+  - {fileID: 2100000, guid: dc4e74d334a837844ae81f3331d86adf, type: 2}
+  - {fileID: 2100000, guid: c253d4cd489fe3d43b1735a129e8813d, type: 2}
+  - {fileID: 2100000, guid: 1407fafc8d82ca84ab12385cbf7e7680, type: 2}
+  - {fileID: 2100000, guid: 32ca905538936ee488242967fe2c44f2, type: 2}
+  - {fileID: 2100000, guid: 8c514e41a7c167e44942bf6905674e5f, type: 2}
+  - {fileID: 2100000, guid: 44910de32ab04f240a4c27fffba06c25, type: 2}
+  - {fileID: 2100000, guid: 8f6515a06a22d304ea9e3d98c8bda7df, type: 2}
+  - {fileID: 2100000, guid: eb052e229cc136c41a5040a2ebf1e5c3, type: 2}
+  - {fileID: 2100000, guid: 98b2757720b3b72449c4d893b0ea78aa, type: 2}
+  - {fileID: 2100000, guid: 43d38615caf3ee949924d24de595b049, type: 2}

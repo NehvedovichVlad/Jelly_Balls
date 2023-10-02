@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scipts.Active
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class ActiveItem: MonoBehaviour
     {
         [SerializeField] private int _level;
@@ -27,6 +28,10 @@ namespace Assets.Scipts.Active
         private const float _maxLevelRadius = 10;
         private const float _procentZoom = 0.1f;
         private const float _magnificationFactor = 2f;
+        private const float _fallRate = 1.2f;
+
+        public Rigidbody Rb;
+
         private void OnValidate()
         {
             if (_level < 0)
@@ -56,6 +61,27 @@ namespace Assets.Scipts.Active
             _visualTransform.localScale = ballScale;
             _collider.radius = _radius;
             _trigger.radius = _radius + _procentZoom;
+        }
+
+        public void SetupToTube()
+        {
+            //Выключаем физику
+            _trigger.enabled = false;
+            _collider.enabled = false;
+            Rb.isKinematic = true;
+            Rb.interpolation = RigidbodyInterpolation.None;
+        }
+
+        public void Drop()
+        {
+            //Делаем его физическим
+            _trigger.enabled = true;
+            _collider.enabled = true;
+            Rb.isKinematic = false;
+            Rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+            transform.parent = null;
+            Rb.velocity = Vector3.down * _fallRate;
         }
     }
 }
