@@ -43,7 +43,7 @@ namespace Assets.Scipts.Active
             _level++;
             SetLevel(_level);
         }
-        public void SetLevel(int level)
+        public virtual void SetLevel(int level)
         {
             Level = level;
             //обновляем число на шаре 
