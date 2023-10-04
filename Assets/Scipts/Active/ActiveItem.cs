@@ -29,7 +29,6 @@ namespace Assets.Scipts.Active
         private const float _procentZoom = 0.1f;
         private const float _magnificationFactor = 2f;
         private const float _fallRate = 1.2f;
-
         public Rigidbody Rb;
 
         private void OnValidate()
@@ -83,5 +82,18 @@ namespace Assets.Scipts.Active
             transform.parent = null;
             Rb.velocity = Vector3.down * _fallRate;
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Rigidbody attachedRig = other.attachedRigidbody;
+            if (attachedRig)          
+               if(attachedRig.TryGetComponent(out ActiveItem activeItem)) 
+                    if(_level == activeItem._level)
+                    {
+                        //объединить
+                        CollapseManager.Collapse(this, activeItem);
+                    }
+        }
     }
 }
+    
