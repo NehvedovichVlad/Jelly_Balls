@@ -4,27 +4,19 @@ using UnityEngine;
 namespace Assets.Scipts.Active
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ActiveItem: MonoBehaviour
+    public class ActiveItem : MonoBehaviour
     {
         [SerializeField] private int _level;
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value < 0)
-                    value = 0;
-                _level = value;
-            }
-        }
-        [SerializeField] private float _radius;
-        [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private Transform _visualTransform;
+        [SerializeField] private float _radius;
+
+        [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private SphereCollider _collider;
         [SerializeField] private SphereCollider _trigger;
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Animator _animator;
-        
+        [SerializeField] private Projection _projection;
+
         private const float _minRadius = 0.4f;
         private const float _maxRadius = 0.7f;
         private const float _maxLevelRadius = 10;
@@ -36,7 +28,24 @@ namespace Assets.Scipts.Active
         private readonly int IncreaseLevelHash = Animator.StringToHash("IncreaseLevel");
 
         public bool IsDead;
+        public Projection Projection { get => _projection; set { } }
+        public TextMeshProUGUI LevelText { get => _levelText; set { } }
+        public float Radius { get => _radius; set { } }
+        public int Level
+        {
+            get => _level;
+            set
+            {
+                if (value < 0)
+                    value = 0;
+                _level = value;
+            }
+        }
 
+        private void Start()
+        {
+            _projection.Hide();
+        }
         private void OnValidate()
         {
             if (_level < 0)
