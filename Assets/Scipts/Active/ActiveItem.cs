@@ -22,14 +22,20 @@ namespace Assets.Scipts.Active
         [SerializeField] private Transform _visualTransform;
         [SerializeField] private SphereCollider _collider;
         [SerializeField] private SphereCollider _trigger;
-
+        [SerializeField] private Rigidbody _rb;
+        [SerializeField] private Animator _animator;
+        
         private const float _minRadius = 0.4f;
         private const float _maxRadius = 0.7f;
         private const float _maxLevelRadius = 10;
         private const float _procentZoom = 0.1f;
         private const float _magnificationFactor = 2f;
         private const float _fallRate = 1.2f;
-        public Rigidbody Rb;
+        private const float _delayTime = 0.08f;
+
+        private readonly int IncreaseLevelHash = Animator.StringToHash("IncreaseLevel");
+
+        public bool IsDead;
 
         private void OnValidate()
         {
@@ -41,11 +47,27 @@ namespace Assets.Scipts.Active
                 _radius = _maxRadius;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (IsDead) return;
+
+            Rigidbody attachedRig = other.attachedRigidbody;
+            if (attachedRig)
+                if (attachedRig.TryGetComponent(out ActiveItem activeItem))
+                    if (!activeItem.IsDead && _level == activeItem._level)
+                        CollapseManager.Collapse(this, this, activeItem);
+        }
+
+
         [ContextMenu("IncreaseLevel")]
         public void IncreaseLevel()
         {
             _level++;
             SetLevel(_level);
+            _animator.SetTrigger(IncreaseLevelHash);
+
+            _trigger.enabled = false;
+            Invoke(nameof(EnableTrigger), _delayTime);
         }
         public virtual void SetLevel(int level)
         {
@@ -67,8 +89,8 @@ namespace Assets.Scipts.Active
             //Выключаем физику
             _trigger.enabled = false;
             _collider.enabled = false;
-            Rb.isKinematic = true;
-            Rb.interpolation = RigidbodyInterpolation.None;
+            _rb.isKinematic = true;
+            _rb.interpolation = RigidbodyInterpolation.None;
         }
 
         public void Drop()
@@ -76,24 +98,30 @@ namespace Assets.Scipts.Active
             //Делаем его физическим
             _trigger.enabled = true;
             _collider.enabled = true;
-            Rb.isKinematic = false;
-            Rb.interpolation = RigidbodyInterpolation.Interpolate;
+            _rb.isKinematic = false;
+            _rb.interpolation = RigidbodyInterpolation.Interpolate;
 
             transform.parent = null;
-            Rb.velocity = Vector3.down * _fallRate;
+            _rb.velocity = Vector3.down * _fallRate;
+        }
+        public void Die()
+        {
+            Destroy(gameObject);
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void Disable()
         {
-            Rigidbody attachedRig = other.attachedRigidbody;
-            if (attachedRig)          
-               if(attachedRig.TryGetComponent(out ActiveItem activeItem)) 
-                    if(_level == activeItem._level)
-                    {
-                        //объединить
-                        CollapseManager.Collapse(this, activeItem);
-                    }
+            _trigger.enabled = true;
+            _rb.isKinematic = true;
+            _collider.enabled = false;
+            IsDead = true;   
         }
+        private void EnableTrigger()
+        {
+            _trigger.enabled = true;
+        }
+
+        
     }
 }
-    
+      

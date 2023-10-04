@@ -6,7 +6,6 @@ public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private BallSettings _ballSettings;
     [SerializeField] private Ball _ball;
-    [SerializeField] private ActiveItem _activeItem;
 
     private void Start()
     {
