@@ -61,10 +61,7 @@ namespace Assets.Scipts.Tube
             // Назначаеи шару случайный уровень
             int itemLevel = Random.Range(_minIndexBall, _maxIndexBall);
 
-            //_itemInTube = Instantiate(_activeItem, _tube.position, Quaternion.identity);
-            _item = SetActiveItem(ActiveItemTypes.Ball);
-            _itemInTube = Instantiate(_item, _tube.position, Quaternion.identity);
-            
+            _itemInTube = CreateItem(ActiveItemTypes.Ball);
             _itemInTube.SetLevel(itemLevel);
             _itemInTube.SetupToTube();
         }
@@ -96,7 +93,9 @@ namespace Assets.Scipts.Tube
                 StartCoroutine(MoveToSpawner());
         }
 
-        private ActiveItem SetActiveItem(ActiveItemTypes activeItemTypes) => _factory.Get(activeItemTypes, _activeItem);
+        private ActiveItem CreateItem(ActiveItemTypes activeItemTypes) =>
+            Instantiate(_factory.Get(activeItemTypes, _activeItem), _tube.position, Quaternion.identity);
+    
          
     }
 }
