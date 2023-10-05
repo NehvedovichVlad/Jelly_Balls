@@ -6,10 +6,8 @@ namespace Assets.Scipts.Active
     public static class CollapseManager
     {
         private const float _timeDeceleration = 0.08f;
-        public static void Collapse(MonoBehaviour monoBeh, ActiveItem itemA, ActiveItem ItemB)
-        {
+        public static void Collapse(MonoBehaviour monoBeh, ActiveItem itemA, ActiveItem ItemB) =>
             monoBeh.StartCoroutine(CollapseProcess(itemA, ItemB));
-        }
 
         private static IEnumerator CollapseProcess(ActiveItem itemA, ActiveItem itemB)
         {

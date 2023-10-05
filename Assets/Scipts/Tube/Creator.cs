@@ -8,29 +8,34 @@ namespace Assets.Scipts.Tube
     {
         private Transform _tube;
         private Transform _spawner;
-        private ActiveItem _ballPrefab;
+        private ActiveItem _activeItem;
         private Transform _rayTransform;
         private LayerMask _layerMask;
 
         private ActiveItem _itemInTube;
         private ActiveItem _itemInSpawner;
+        private ActiveItem _item;
 
         private const int _minIndexBall = 0;
         private const int _maxIndexBall = 5;
         private const float _timeSetupPosition = 0.45f;
         private const float _maxDistance = 100f;
 
-        public void Initialize(Transform tube, Transform spawner, ActiveItem ballPrefab, Transform rayTransform, LayerMask layerMask)
+        private ActiveItemFactory _factory;
+
+
+        public void Initialize(Transform tube, Transform spawner, ActiveItem activeItem, Transform rayTransform, LayerMask layerMask)
         {
             _tube = tube;
             _spawner = spawner;
-            _ballPrefab = ballPrefab;
+            _activeItem = activeItem;
             _rayTransform = rayTransform;
             _layerMask = layerMask;
         }
 
         private void Start()
         {
+            _factory = new();
             CreateItemInTube();
             StartCoroutine(MoveToSpawner());
         }
@@ -55,7 +60,11 @@ namespace Assets.Scipts.Tube
         {
             // Назначаеи шару случайный уровень
             int itemLevel = Random.Range(_minIndexBall, _maxIndexBall);
-            _itemInTube = Instantiate(_ballPrefab, _tube.position, Quaternion.identity);
+
+            //_itemInTube = Instantiate(_activeItem, _tube.position, Quaternion.identity);
+            _item = SetActiveItem(ActiveItemTypes.Ball);
+            _itemInTube = Instantiate(_item, _tube.position, Quaternion.identity);
+            
             _itemInTube.SetLevel(itemLevel);
             _itemInTube.SetupToTube();
         }
@@ -86,6 +95,8 @@ namespace Assets.Scipts.Tube
             if (_itemInTube)
                 StartCoroutine(MoveToSpawner());
         }
+
+        private ActiveItem SetActiveItem(ActiveItemTypes activeItemTypes) => _factory.Get(activeItemTypes, _activeItem);
          
     }
 }

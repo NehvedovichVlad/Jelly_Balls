@@ -1,4 +1,3 @@
-using Assets.Scipts.Config;
 using UnityEngine;
 using Assets.Scipts.Active;
 using Assets.Scipts.Tube;

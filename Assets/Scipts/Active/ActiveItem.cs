@@ -8,14 +8,13 @@ namespace Assets.Scipts.Active
     {
         [SerializeField] private int _level;
         [SerializeField] private Transform _visualTransform;
-        [SerializeField] private float _radius;
-
-        [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private SphereCollider _collider;
         [SerializeField] private SphereCollider _trigger;
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Animator _animator;
-        [SerializeField] private Projection _projection;
+        [field: SerializeField] public Projection Projection { get; private set; }
+        [field: SerializeField] public TextMeshProUGUI LevelText { get; private set; }
+        [field: SerializeField] public float Radius { get; private set; }
 
         private const float _minRadius = 0.4f;
         private const float _maxRadius = 0.7f;
@@ -28,9 +27,7 @@ namespace Assets.Scipts.Active
         private readonly int IncreaseLevelHash = Animator.StringToHash("IncreaseLevel");
 
         public bool IsDead;
-        public Projection Projection { get => _projection; set { } }
-        public TextMeshProUGUI LevelText { get => _levelText; set { } }
-        public float Radius { get => _radius; set { } }
+       
         public int Level
         {
             get => _level;
@@ -42,18 +39,15 @@ namespace Assets.Scipts.Active
             }
         }
 
-        private void Start()
-        {
-            _projection.Hide();
-        }
+        private void Start() => Projection.Hide();
         private void OnValidate()
-        {
+        { 
             if (_level < 0)
                 _level = 0;
-            if (_radius < _minRadius)
-                _radius = _minRadius;
-            if (_radius > _maxRadius)
-                _radius = _maxRadius;
+            if (Radius < _minRadius)
+                Radius = _minRadius;
+            if (Radius > _maxRadius)
+                Radius = _maxRadius;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -84,13 +78,13 @@ namespace Assets.Scipts.Active
             //обновляем число на шаре 
             int number = (int)Mathf.Pow(2, level + 1);
             string numberString = number.ToString();
-            _levelText.text = numberString;
+            LevelText.text = numberString;
 
-            _radius = Mathf.Lerp(_minRadius, _maxRadius, level / _maxLevelRadius);
-            Vector3 ballScale = Vector3.one * _radius * _magnificationFactor;
+            Radius = Mathf.Lerp(_minRadius, _maxRadius, level / _maxLevelRadius);
+            Vector3 ballScale = Vector3.one * Radius * _magnificationFactor;
             _visualTransform.localScale = ballScale;
-            _collider.radius = _radius;
-            _trigger.radius = _radius + _procentZoom;
+            _collider.radius = Radius;
+            _trigger.radius = Radius + _procentZoom;
         }
 
         public void SetupToTube()
@@ -113,11 +107,6 @@ namespace Assets.Scipts.Active
             transform.parent = null;
             _rb.velocity = Vector3.down * _fallRate;
         }
-        public void Die()
-        {
-            Destroy(gameObject);
-        }
-
         public void Disable()
         {
             _trigger.enabled = true;
@@ -125,11 +114,8 @@ namespace Assets.Scipts.Active
             _collider.enabled = false;
             IsDead = true;   
         }
-        private void EnableTrigger()
-        {
-            _trigger.enabled = true;
-        }
-
+        public void Die() => Destroy(gameObject);
+        private void EnableTrigger() => _trigger.enabled = true;
         
     }
 }
