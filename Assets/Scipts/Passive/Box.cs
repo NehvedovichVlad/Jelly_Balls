@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Assets.Scipts.BaseItem;
+using UnityEngine;
 
 namespace Assets.Scipts.Passive
 {
-    public class Box : MonoBehaviour, IPassiveItem
+    public class Box : Item, IPassiveItem
     {
         [SerializeField] private GameObject[] _levels;
         [SerializeField] private GameObject _breakEffectPrefab;

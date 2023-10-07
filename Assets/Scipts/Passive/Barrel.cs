@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Assets.Scipts.BaseItem;
+using UnityEngine;
 
 namespace Assets.Scipts.Passive
 {
-    public class Barrel : MonoBehaviour, IPassiveItem
+    public class Barrel : Item, IPassiveItem
     {
         [SerializeField] private GameObject _barrelExplosion;
         public  void OnAffect() => Die();

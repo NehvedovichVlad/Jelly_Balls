@@ -21,9 +21,8 @@ namespace Assets.Scipts.Active
             base.Start();
             _affectArea.SetActive(true);
         }
-
-        [ContextMenu("Explode")]
-        public void Explode() => StartCoroutine(AffectProcess()); 
+        public override void DoEffect() =>
+            StartCoroutine(AffectProcess());
 
         private IEnumerator AffectProcess()
         {
@@ -48,6 +47,6 @@ namespace Assets.Scipts.Active
 
             Instantiate(_effectPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
-        }
+        }  
     }
 }

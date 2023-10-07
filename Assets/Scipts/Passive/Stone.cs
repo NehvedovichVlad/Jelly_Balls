@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Assets.Scipts.BaseItem;
+using System;
 using UnityEngine;
 
 namespace Assets.Scipts.Passive
 {
-    public class Stone : MonoBehaviour, IPassiveItem
+    public class Stone : Item, IPassiveItem
     {
         [SerializeField] private GameObject _dieEffect;
         [SerializeField, Range(0, 2)] private int _level = 2;

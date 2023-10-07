@@ -260,13 +260,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _level: 0
-  _rb: {fileID: 6732026219861964926}
-  _animator: {fileID: 1211461618668703791}
+  Animator: {fileID: 1211461618668703791}
   <Projection>k__BackingField: {fileID: 259295211318985493}
   <LevelText>k__BackingField: {fileID: 7232975226359202366}
   <Radius>k__BackingField: 0.4
   <Collider>k__BackingField: {fileID: 943670699498212279}
   <Trigger>k__BackingField: {fileID: 4192702495945068353}
+  <RigidBody>k__BackingField: {fileID: 6732026219861964926}
   IsDead: 0
   _renderer: {fileID: 8323633682641828281}
   _ballSettings: {fileID: 11400000, guid: b1244eef8ed661d4cb91bb540a902600, type: 2}

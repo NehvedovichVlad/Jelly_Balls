@@ -344,14 +344,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f135ec27f1b1249a52b02a04909950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemType: 1
   _level: 0
-  _rb: {fileID: 5767910824385103242}
   Animator: {fileID: 7111991172950547066}
   <Projection>k__BackingField: {fileID: 5520776497048248766}
   <LevelText>k__BackingField: {fileID: 4323181829926915822}
   <Radius>k__BackingField: 0.4
   <Collider>k__BackingField: {fileID: 2604149794462354621}
   <Trigger>k__BackingField: {fileID: 377299448548909717}
+  <RigidBody>k__BackingField: {fileID: 5767910824385103242}
   IsDead: 0
   _renderer: {fileID: 5997035575911895698}
   _ballSettings: {fileID: 11400000, guid: b1244eef8ed661d4cb91bb540a902600, type: 2}

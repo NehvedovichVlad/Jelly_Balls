@@ -1083,14 +1083,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60f0fe795b3f134495a396b5f178a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemType: 4
   _level: 0
-  _rb: {fileID: 7752724703979967162}
   Animator: {fileID: 272524584181136944}
   <Projection>k__BackingField: {fileID: 7680188519010915862}
   <LevelText>k__BackingField: {fileID: 6886233283331818486}
   <Radius>k__BackingField: 0.4
   <Collider>k__BackingField: {fileID: 8051778141784665138}
   <Trigger>k__BackingField: {fileID: 1605661350384212347}
+  <RigidBody>k__BackingField: {fileID: 7752724703979967162}
   IsDead: 0
   _affectRadius: 1.5
   _forceValue: 1000
