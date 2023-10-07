@@ -2,16 +2,15 @@
 
 namespace Assets.Scipts.Passive
 {
-    public class Box : PassiveItem
+    public class Box : MonoBehaviour, IPassiveItem
     {
         [SerializeField] private GameObject[] _levels;
         [SerializeField] private GameObject _breakEffectPrefab;
         [SerializeField] private Animator _animator;
         [SerializeField, Range(0,2)] private int _health = 1;
         private void Start() => SetHealth(_health);
-        public override void OnAffect()
+        public void OnAffect()
         {
-            base.OnAffect();
             _health -= 1;
             Instantiate(_breakEffectPrefab, transform.position, Quaternion.Euler(-90f, 0f, 0f));
             _animator.SetTrigger("Shake");
@@ -27,6 +26,6 @@ namespace Assets.Scipts.Passive
                 _levels[i].SetActive(i <= value);
         }
 
-        private void Die() => Destroy(this.gameObject);
+        private  void Die() => Destroy(this.gameObject);
     }
 }

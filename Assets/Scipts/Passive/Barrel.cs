@@ -2,14 +2,10 @@
 
 namespace Assets.Scipts.Passive
 {
-    public class Barrel : PassiveItem
+    public class Barrel : MonoBehaviour, IPassiveItem
     {
         [SerializeField] private GameObject _barrelExplosion;
-        public override void OnAffect()
-        {
-            base.OnAffect();
-            Die();
-        }
+        public  void OnAffect() => Die();
 
         [ContextMenu("Die")]
         private void Die()

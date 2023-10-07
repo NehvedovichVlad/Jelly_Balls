@@ -35,10 +35,10 @@ namespace Assets.Scipts.Active
             for (int i = 0; i < colliders.Length; i++)
             {
                 Rigidbody rig = colliders[i].attachedRigidbody;
-                colliders[i].TryGetComponent(out PassiveItem passiveItem);
+                colliders[i].TryGetComponent(out IPassiveItem passiveItem);
                 if (rig)
-                    passiveItem = rig.GetComponent<PassiveItem>();
-                if(passiveItem)
+                    passiveItem = rig.GetComponent<IPassiveItem>();
+                if(passiveItem != null)
                     passiveItem.OnAffect();
             }
                 
