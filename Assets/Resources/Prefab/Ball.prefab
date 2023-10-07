@@ -345,17 +345,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _level: 0
-  _visualTransform: {fileID: 5750108768597398367}
-  _collider: {fileID: 2604149794462354621}
-  _trigger: {fileID: 377299448548909717}
   _rb: {fileID: 5767910824385103242}
-  _animator: {fileID: 7111991172950547066}
+  Animator: {fileID: 7111991172950547066}
   <Projection>k__BackingField: {fileID: 5520776497048248766}
   <LevelText>k__BackingField: {fileID: 4323181829926915822}
   <Radius>k__BackingField: 0.4
+  <Collider>k__BackingField: {fileID: 2604149794462354621}
+  <Trigger>k__BackingField: {fileID: 377299448548909717}
   IsDead: 0
   _renderer: {fileID: 5997035575911895698}
   _ballSettings: {fileID: 11400000, guid: b1244eef8ed661d4cb91bb540a902600, type: 2}
+  _visualTransform: {fileID: 5750108768597398367}
 --- !u!1 &2182834476108602546
 GameObject:
   m_ObjectHideFlags: 0

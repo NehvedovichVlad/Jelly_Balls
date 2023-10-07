@@ -7,20 +7,18 @@ namespace Assets.Scipts.Active
     public class ActiveItem : MonoBehaviour
     {
         [SerializeField] private int _level;
-        [SerializeField] private Transform _visualTransform;
-        [SerializeField] private SphereCollider _collider;
-        [SerializeField] private SphereCollider _trigger;
         [SerializeField] private Rigidbody _rb;
-        [SerializeField] private Animator _animator;
+
+        [SerializeField] protected Animator Animator; // Todo разделить на классы
+
         [field: SerializeField] public Projection Projection { get; private set; }
         [field: SerializeField] public TextMeshProUGUI LevelText { get; private set; }
-        [field: SerializeField] public float Radius { get; private set; }
 
-        private const float _minRadius = 0.4f;
-        private const float _maxRadius = 0.7f;
-        private const float _maxLevelRadius = 10;
-        private const float _procentZoom = 0.1f;
-        private const float _magnificationFactor = 2f;
+        [field: SerializeField] public float Radius { get; protected set; }
+        [field: SerializeField] public SphereCollider Collider  { get; protected set; }
+        [field: SerializeField] public SphereCollider Trigger { get; protected set; }
+
+
         private const float _fallRate = 1.2f;
         private const float _delayTime = 0.08f;
 
@@ -39,16 +37,8 @@ namespace Assets.Scipts.Active
             }
         }
 
-        private void Start() => Projection.Hide();
-        private void OnValidate()
-        { 
-            if (_level < 0)
-                _level = 0;
-            if (Radius < _minRadius)
-                Radius = _minRadius;
-            if (Radius > _maxRadius)
-                Radius = _maxRadius;
-        }
+        protected virtual void Start() => Projection.Hide();
+        
 
         private void OnTriggerEnter(Collider other)
         {
@@ -67,9 +57,9 @@ namespace Assets.Scipts.Active
         {
             _level++;
             SetLevel(_level);
-            _animator.SetTrigger(IncreaseLevelHash);
+            Animator.SetTrigger(IncreaseLevelHash);
 
-            _trigger.enabled = false;
+            Trigger.enabled = false;
             Invoke(nameof(EnableTrigger), _delayTime);
         }
         public virtual void SetLevel(int level)
@@ -79,19 +69,13 @@ namespace Assets.Scipts.Active
             int number = (int)Mathf.Pow(2, level + 1);
             string numberString = number.ToString();
             LevelText.text = numberString;
-
-            Radius = Mathf.Lerp(_minRadius, _maxRadius, level / _maxLevelRadius);
-            Vector3 ballScale = Vector3.one * Radius * _magnificationFactor;
-            _visualTransform.localScale = ballScale;
-            _collider.radius = Radius;
-            _trigger.radius = Radius + _procentZoom;
         }
 
         public void SetupToTube()
         {
             //Выключаем физику
-            _trigger.enabled = false;
-            _collider.enabled = false;
+            Trigger.enabled = false;
+            Collider.enabled = false;
             _rb.isKinematic = true;
             _rb.interpolation = RigidbodyInterpolation.None;
         }
@@ -99,8 +83,8 @@ namespace Assets.Scipts.Active
         public void Drop()
         {
             //Делаем его физическим
-            _trigger.enabled = true;
-            _collider.enabled = true;
+            Trigger.enabled = true;
+            Collider.enabled = true;
             _rb.isKinematic = false;
             _rb.interpolation = RigidbodyInterpolation.Interpolate;
 
@@ -109,13 +93,13 @@ namespace Assets.Scipts.Active
         }
         public void Disable()
         {
-            _trigger.enabled = true;
+            Trigger.enabled = true;
             _rb.isKinematic = true;
-            _collider.enabled = false;
+            Collider.enabled = false;
             IsDead = true;   
         }
         public void Die() => Destroy(gameObject);
-        private void EnableTrigger() => _trigger.enabled = true;
+        private void EnableTrigger() => Trigger.enabled = true;
         
     }
 }

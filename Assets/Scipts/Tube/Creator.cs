@@ -91,8 +91,6 @@ namespace Assets.Scipts.Tube
         }
 
         private ActiveItem CreateItem(ActiveItemTypes activeItemTypes) =>
-            Instantiate(_factory.Get(activeItemTypes), _tube.position, Quaternion.identity);
-    
-         
+            Instantiate(_factory.Get(activeItemTypes), _tube.position, Quaternion.identity); 
     }
 }
