@@ -5,14 +5,14 @@ namespace Assets.Scipts.Active
 {
     public class ActiveItemFactory
     {
-        private Transform _tube;
+        private readonly string _pathBall = "Prefab/Ball";
 
-        public ActiveItem Get(ActiveItemTypes activeItemTypes, ActiveItem activeItem)
+        public ActiveItem Get(ActiveItemTypes activeItemTypes)
         {
             switch (activeItemTypes) 
             {
                 case ActiveItemTypes.Ball:
-                    return (Ball)activeItem;
+                    return Resources.Load<ActiveItem>(_pathBall);
                 default:
                     throw new ArgumentException(nameof(ActiveItem));
             }

@@ -1221,6 +1221,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5366570637728524862, guid: f6fbc598ce3cbfc46a50a36e4e29e65a,
+        type: 3}
+      propertyPath: _health
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

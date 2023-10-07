@@ -8,13 +8,11 @@ namespace Assets.Scipts.Tube
     {
         private Transform _tube;
         private Transform _spawner;
-        private ActiveItem _activeItem;
         private Transform _rayTransform;
         private LayerMask _layerMask;
 
         private ActiveItem _itemInTube;
         private ActiveItem _itemInSpawner;
-        private ActiveItem _item;
 
         private const int _minIndexBall = 0;
         private const int _maxIndexBall = 5;
@@ -24,11 +22,10 @@ namespace Assets.Scipts.Tube
         private ActiveItemFactory _factory;
 
 
-        public void Initialize(Transform tube, Transform spawner, ActiveItem activeItem, Transform rayTransform, LayerMask layerMask)
+        public void Initialize(Transform tube, Transform spawner,  Transform rayTransform, LayerMask layerMask)
         {
             _tube = tube;
             _spawner = spawner;
-            _activeItem = activeItem;
             _rayTransform = rayTransform;
             _layerMask = layerMask;
         }
@@ -94,7 +91,7 @@ namespace Assets.Scipts.Tube
         }
 
         private ActiveItem CreateItem(ActiveItemTypes activeItemTypes) =>
-            Instantiate(_factory.Get(activeItemTypes, _activeItem), _tube.position, Quaternion.identity);
+            Instantiate(_factory.Get(activeItemTypes), _tube.position, Quaternion.identity);
     
          
     }
