@@ -20,6 +20,8 @@ namespace Assets.Scipts.Active
         [field: SerializeField] public Rigidbody RigidBody { get; protected set; }
 
         private const float _fallRate = 1.2f;
+        private const float _delayTime = 0.08f;
+        private readonly int IncreaseLevelHash = Animator.StringToHash("IncreaseLevel");
 
         public bool IsDead;
        
@@ -75,6 +77,17 @@ namespace Assets.Scipts.Active
             transform.parent = null;
             RigidBody.velocity = Vector3.down * _fallRate;
         }
+
+        [ContextMenu("IncreaseLevel")]
+        public void IncreaseLevel()
+        {
+            Level++;
+            SetLevel(Level);
+            Animator.SetTrigger(IncreaseLevelHash);
+
+            Trigger.enabled = false;
+            Invoke(nameof(EnableTrigger), _delayTime);
+        }
         public void Disable()
         {
             Trigger.enabled = true;
@@ -85,7 +98,10 @@ namespace Assets.Scipts.Active
 
         public virtual void DoEffect() { }
         public void Die() => Destroy(gameObject);
-        
+
+        private void EnableTrigger() => Trigger.enabled = true;
+
+
     }
 }
       

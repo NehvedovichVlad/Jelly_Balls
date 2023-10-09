@@ -15,9 +15,7 @@ namespace Assets.Scipts.Active
         private const float _maxLevelRadius = 10;
         private const float _procentZoom = 0.1f;
         private const float _magnificationFactor = 2f;
-        private const float _delayTime = 0.08f;
 
-        private readonly int IncreaseLevelHash = Animator.StringToHash("IncreaseLevel");
         private void OnValidate()
         {
             if (Level < 0)
@@ -41,20 +39,6 @@ namespace Assets.Scipts.Active
             Projection.Setup(_ballSettings.BallProjectionMaterials[level], LevelText.text, Radius);
         }
 
-        public override void DoEffect() => IncreaseLevel();
-
-        [ContextMenu("IncreaseLevel")]
-        private void IncreaseLevel()
-        {
-            Level++;
-            SetLevel(Level);
-            Animator.SetTrigger(IncreaseLevelHash);
-
-            Trigger.enabled = false;
-            Invoke(nameof(EnableTrigger), _delayTime);
-        }
-        private void EnableTrigger() => Trigger.enabled = true;
-
-        
+        public override void DoEffect() => IncreaseLevel();     
     }
 }
