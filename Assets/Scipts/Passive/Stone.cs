@@ -1,4 +1,5 @@
 ﻿using Assets.Scipts.BaseItem;
+using Assets.Scipts.Levels;
 using System;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ namespace Assets.Scipts.Passive
             if (_level > 0)
                 for (int i = 0; i < _countMiniRock; i++)
                     CreateChildRock(_level - 1);
+            else
+                HandlerEvents.OnElementsDied(ItemType, transform.position);
             Die();
         }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Assets.Scipts.Active;
 using Assets.Scipts.Tube;
+using Assets.Scipts.Levels;
 
 public class EntryPoint : MonoBehaviour
 {
@@ -13,11 +14,17 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Transform _rayTransform;
     [SerializeField] private LayerMask _layerMask;
 
-
+    [Header("------------------ScoreManager------------------")]
+    [Space(20)]
+    [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private Level _level;
+    [SerializeField] private ScoreElement[] _scoreElementsPrefab;
+    [SerializeField] private Transform _itemScoreParent;
+    [SerializeField] private Camera _camera;
     private void Awake()
     {
-        //_ball.Initialize(_ballSettings);
         _creator.Initialize(_tube, _spawner, _rayTransform, _layerMask);
+        _scoreManager.Initialize(_level, _scoreElementsPrefab, _itemScoreParent, _camera);
     }
 
 

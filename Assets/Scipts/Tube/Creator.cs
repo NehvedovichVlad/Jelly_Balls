@@ -21,7 +21,6 @@ namespace Assets.Scipts.Tube
 
         private ActiveItemFactory _factory;
 
-
         public void Initialize(Transform tube, Transform spawner,  Transform rayTransform, LayerMask layerMask)
         {
             _tube = tube;

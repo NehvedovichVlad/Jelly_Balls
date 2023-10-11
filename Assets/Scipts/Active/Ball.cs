@@ -1,4 +1,5 @@
 ﻿using Assets.Scipts.Config;
+using Assets.Scipts.Levels;
 using UnityEngine;
 
 namespace Assets.Scipts.Active
@@ -37,6 +38,10 @@ namespace Assets.Scipts.Active
             Trigger.radius = Radius + _procentZoom;
 
             Projection.Setup(_ballSettings.BallProjectionMaterials[level], LevelText.text, Radius);
+
+            if(HandlerEvents.OnElementsDied(ItemType, transform.position, level))           
+                Die();
+              
         }
 
         public override void DoEffect() => IncreaseLevel();     

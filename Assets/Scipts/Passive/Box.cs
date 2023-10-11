@@ -1,4 +1,6 @@
 ﻿using Assets.Scipts.BaseItem;
+using Assets.Scipts.Levels;
+using System;
 using UnityEngine;
 
 namespace Assets.Scipts.Passive
@@ -9,6 +11,8 @@ namespace Assets.Scipts.Passive
         [SerializeField] private GameObject _breakEffectPrefab;
         [SerializeField] private Animator _animator;
         [SerializeField, Range(0,2)] private int _health = 1;
+
+        public event Action<ItemType, Vector3> Died;
         private void Start() => SetHealth(_health);
         public void OnAffect()
         {
@@ -27,6 +31,10 @@ namespace Assets.Scipts.Passive
                 _levels[i].SetActive(i <= value);
         }
 
-        private  void Die() => Destroy(this.gameObject);
+        private void Die() 
+        {
+            Destroy(this.gameObject);
+            HandlerEvents.OnElementsDied(ItemType, transform.position);
+        }
     }
 }
