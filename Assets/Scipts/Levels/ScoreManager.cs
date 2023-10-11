@@ -42,6 +42,7 @@ namespace Assets.Scipts.Levels
         {
             for (int i = 0; i < _scoreElements.Length; i++)
                 if (_scoreElements[i].CurrentScore != 0) return;
+            HandlerEvents.OnWin();
         }
 
         private IEnumerator AddScoreAnimation(ScoreElement scoreElement, Vector3 position)

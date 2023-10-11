@@ -12,7 +12,6 @@ namespace Assets.Scipts.Passive
         [SerializeField] private Animator _animator;
         [SerializeField, Range(0,2)] private int _health = 1;
 
-        public event Action<ItemType, Vector3> Died;
         private void Start() => SetHealth(_health);
         public void OnAffect()
         {

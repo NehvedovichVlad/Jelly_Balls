@@ -1,4 +1,5 @@
 ﻿using Assets.Scipts.BaseItem;
+using Assets.Scipts.Levels;
 using Assets.Scipts.Passive;
 using System.Collections;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Assets.Scipts.Active
         private const float _timeDeceleration = 0.08f;
         private const float _partRadius = 0.15f;
         private const float _differentHeight = 0.02f;
+
         public static void Collapse(MonoBehaviour monoBeh, ActiveItem itemA, ActiveItem itemB)
         {
             ActiveItem toItem;
@@ -45,6 +47,8 @@ namespace Assets.Scipts.Active
                 }
             }
             monoBeh.StartCoroutine(CollapseProcess(fromItem, toItem));
+
+            HandlerEvents.OnResetedLoseTimer();
         }
 
         private static IEnumerator CollapseProcess(ActiveItem fromItem, ActiveItem toItem)

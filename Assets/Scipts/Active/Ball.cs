@@ -40,8 +40,7 @@ namespace Assets.Scipts.Active
             Projection.Setup(_ballSettings.BallProjectionMaterials[level], LevelText.text, Radius);
 
             if(HandlerEvents.OnElementsDied(ItemType, transform.position, level))           
-                Die();
-              
+                Die();   
         }
 
         public override void DoEffect() => IncreaseLevel();     

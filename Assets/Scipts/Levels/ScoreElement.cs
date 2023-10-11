@@ -17,7 +17,15 @@ namespace Assets.Scipts.Levels
 
         public ItemType ItemType => _itemType;
         public int CurrentScore => _currentScore;
-        public int Level { get => _level; protected set { _level = value; } }
+        public int Level 
+        { 
+            get => _level; 
+            protected set {
+                if (value < 0)
+                    value = 0;
+                _level = value; 
+            } 
+        }
         public GameObject FlyingIconPrefab => _flyingIconPrefab;
         public Transform IconTransform => _iconTransform;
 

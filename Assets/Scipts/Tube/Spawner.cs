@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scipts.Levels;
+using UnityEngine;
 namespace Assets.Scipts.Tube
 {
     public class Spawner : MonoBehaviour
@@ -9,6 +10,9 @@ namespace Assets.Scipts.Tube
 
         private float _xPoisition;
         private float _oldMouseX;
+
+        private void Start() => HandlerEvents.Win += SpawnerEnabled;
+        private void OnDestroy() => HandlerEvents.Win -= SpawnerEnabled;
 
         private void Update()
         {
@@ -27,5 +31,7 @@ namespace Assets.Scipts.Tube
             _xPoisition = Mathf.Clamp(_xPoisition, -_maxXPosition, _maxXPosition);
             transform.position = new Vector3(_xPoisition, transform.position.y, transform.position.z);
         }
+
+        private void SpawnerEnabled() => this.gameObject.SetActive(false);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Assets.Scipts.Active;
+using Assets.Scipts.Levels;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scipts.Tube
@@ -20,20 +22,34 @@ namespace Assets.Scipts.Tube
         private const float _maxDistance = 100f;
 
         private ActiveItemFactory _factory;
-
-        public void Initialize(Transform tube, Transform spawner,  Transform rayTransform, LayerMask layerMask)
+        private int _ballsLeft;
+        private TextMeshProUGUI _numberOfBalls;
+        public void Initialize(Transform tube, Transform spawner,  Transform rayTransform, LayerMask layerMask, TextMeshProUGUI numberOfBalls)
         {
             _tube = tube;
             _spawner = spawner;
             _rayTransform = rayTransform;
             _layerMask = layerMask;
+            _numberOfBalls = numberOfBalls;
         }
 
         private void Start()
         {
+            _ballsLeft = FindObjectOfType<Level>().NumberOfBalls;
+            UpdateBallsLeftText();
+            HandlerEvents.ResetLoseTimer += ResetLoseTimer;
+            HandlerEvents.Win += CreatorEnabled;
+            HandlerEvents.Win += StopWaitForLose;
+
             _factory = new();
             CreateItemInTube();
             StartCoroutine(MoveToSpawner());
+        }
+        private void OnDestroy()
+        {
+            HandlerEvents.ResetLoseTimer -= ResetLoseTimer;
+            HandlerEvents.Win -= CreatorEnabled;
+            HandlerEvents.Win -= StopWaitForLose;
         }
 
         private void LateUpdate()
@@ -52,14 +68,19 @@ namespace Assets.Scipts.Tube
                     Drop();
             }
         }
+
+        private void CreatorEnabled() => this.gameObject.SetActive(false); 
+
+        private void UpdateBallsLeftText() =>
+            _numberOfBalls.text = _ballsLeft.ToString();
         private void CreateItemInTube()
         {
-            // Назначаеи шару случайный уровень
+            if (_ballsLeft == 0) return;
             int itemLevel = Random.Range(_minIndexBall, _maxIndexBall);
-
             _itemInTube = CreateItem(ActiveItemTypes.Ball);
             _itemInTube.SetLevel(itemLevel);
             _itemInTube.SetupToTube();
+            _ballsLeft--;
         }
 
         private IEnumerator MoveToSpawner()
@@ -76,8 +97,10 @@ namespace Assets.Scipts.Tube
             _itemInSpawner.Projection.Show();
             _itemInTube = null;
             CreateItemInTube();
+            UpdateBallsLeftText();
         }
 
+        private Coroutine _waitForLose;
         private void Drop()
         {
             _itemInSpawner.Drop();
@@ -87,9 +110,33 @@ namespace Assets.Scipts.Tube
             _rayTransform.gameObject.SetActive(false);
             if (_itemInTube)
                 StartCoroutine(MoveToSpawner());
+            else
+                _waitForLose = StartCoroutine(WaitForLose());
+        }
+
+        private void ResetLoseTimer()
+        {
+            if (_waitForLose != null)
+            {
+                StopCoroutine(_waitForLose);
+                _waitForLose = StartCoroutine(WaitForLose());
+            }   
+        }
+        private void StopWaitForLose()
+        {
+            if (_waitForLose != null)
+                StopCoroutine(_waitForLose);
+        }   
+
+        private IEnumerator WaitForLose()
+        {
+           for (float t = 0; t < 5f; t += Time.deltaTime)
+               yield return null;
+
+            HandlerEvents.OnLose();
         }
 
         private ActiveItem CreateItem(ActiveItemTypes activeItemTypes) =>
-            Instantiate(_factory.Get(activeItemTypes), _tube.position, Quaternion.identity); 
+            Instantiate(_factory.Get(activeItemTypes), _tube.position, Quaternion.identity);
     }
 }

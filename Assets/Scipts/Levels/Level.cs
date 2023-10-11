@@ -17,6 +17,7 @@ namespace Assets.Scipts.Levels
         [SerializeField] private int _maxCreatedBallLevel = 1;
 
         [SerializeField] private Task[] _tasks;
+        public int NumberOfBalls => _numberOfBalls;
         public Task[] Tasks => _tasks;
     }
 }
