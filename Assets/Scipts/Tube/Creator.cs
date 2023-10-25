@@ -37,9 +37,9 @@ namespace Assets.Scipts.Tube
         {
             _ballsLeft = FindObjectOfType<Level>().NumberOfBalls;
             UpdateBallsLeftText();
-            HandlerEvents.ResetLoseTimer += ResetLoseTimer;
-            HandlerEvents.Win += CreatorEnabled;
-            HandlerEvents.Win += StopWaitForLose;
+            HandlerEvents.OnResetLoseTimer += ResetLoseTimer;
+            HandlerEvents.OnWin += CreatorEnabled;
+            HandlerEvents.OnWin += StopWaitForLose;
 
             _factory = new();
             CreateItemInTube();
@@ -47,9 +47,9 @@ namespace Assets.Scipts.Tube
         }
         private void OnDestroy()
         {
-            HandlerEvents.ResetLoseTimer -= ResetLoseTimer;
-            HandlerEvents.Win -= CreatorEnabled;
-            HandlerEvents.Win -= StopWaitForLose;
+            HandlerEvents.OnResetLoseTimer -= ResetLoseTimer;
+            HandlerEvents.OnWin -= CreatorEnabled;
+            HandlerEvents.OnWin -= StopWaitForLose;
         }
 
         private void LateUpdate()
@@ -133,7 +133,7 @@ namespace Assets.Scipts.Tube
            for (float t = 0; t < 5f; t += Time.deltaTime)
                yield return null;
 
-            HandlerEvents.OnLose();
+            HandlerEvents.Lose();
         }
 
         private ActiveItem CreateItem(ActiveItemTypes activeItemTypes) =>

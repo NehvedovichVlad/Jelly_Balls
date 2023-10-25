@@ -1,5 +1,7 @@
 ﻿using Assets.Scipts.Levels;
+using Assets.Scipts.Menu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scipts.UI
 {
@@ -16,18 +18,27 @@ namespace Assets.Scipts.UI
 
         private void Start()
         {
-            HandlerEvents.Lose += Lose;
-            HandlerEvents.Win += Win;
+            HandlerEvents.OnLose += Lose;
+            HandlerEvents.OnWin += Win;
         }
 
         private void OnDestroy()
         {
-            HandlerEvents.Lose -= Lose;
-            HandlerEvents.Win -= Win;
+            HandlerEvents.OnLose -= Lose;
+            HandlerEvents.OnWin -= Win;
         }
 
-        public void Win() => _winObject.SetActive(true);
+        public void Win()
+        {
+            _winObject.SetActive(true);
+            int curentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+            Progress.Instance.SetLevel(curentLevelIndex + 1);
+            Progress.Instance.AddCoins(50);
+        }
         public void Lose() => _loseObject.SetActive(true);
+        public void ToMainMenu() => SceneManager.LoadScene(0);
+        public void NextLevel() => SceneManager.LoadScene(Progress.Instance.Level);
+        public void Replay() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     }
-}
+}  

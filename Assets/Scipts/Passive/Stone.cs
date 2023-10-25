@@ -23,7 +23,7 @@ namespace Assets.Scipts.Passive
                 for (int i = 0; i < _countMiniRock; i++)
                     CreateChildRock(_level - 1);
             else
-                HandlerEvents.OnElementsDied(ItemType, transform.position);
+                HandlerEvents.ElementsDied(ItemType, transform.position);
             Die();
         }
 

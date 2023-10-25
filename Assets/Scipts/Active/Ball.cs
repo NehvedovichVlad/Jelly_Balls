@@ -39,7 +39,7 @@ namespace Assets.Scipts.Active
 
             Projection.Setup(_ballSettings.BallProjectionMaterials[level], LevelText.text, Radius);
 
-            if(HandlerEvents.OnElementsDied(ItemType, transform.position, level))           
+            if(HandlerEvents.ElementsDied(ItemType, transform.position, level))           
                 Die();   
         }
 

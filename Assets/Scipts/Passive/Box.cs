@@ -18,10 +18,9 @@ namespace Assets.Scipts.Passive
             _health -= 1;
             Instantiate(_breakEffectPrefab, transform.position, Quaternion.Euler(-90f, 0f, 0f));
             _animator.SetTrigger("Shake");
-            if (_health < 0)
-                Die();
-            else
-                SetHealth(_health);
+
+            if (_health < 0) Die();
+            else SetHealth(_health);
         }
 
         private void SetHealth(int value) 
@@ -33,7 +32,7 @@ namespace Assets.Scipts.Passive
         private void Die() 
         {
             Destroy(this.gameObject);
-            HandlerEvents.OnElementsDied(ItemType, transform.position);
+            HandlerEvents.ElementsDied(ItemType, transform.position);
         }
     }
 }

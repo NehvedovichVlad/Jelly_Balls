@@ -14,7 +14,7 @@ namespace Assets.Scipts.Passive
         {
             Instantiate(_barrelExplosion, transform.position, Quaternion.Euler(-90f, 0f, 0f));
             Destroy(this.gameObject);
-            HandlerEvents.OnElementsDied(ItemType, transform.position);
+            HandlerEvents.ElementsDied(ItemType, transform.position);
         }
     }
 } 

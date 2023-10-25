@@ -20,10 +20,10 @@ namespace Assets.Scipts.Levels
             _camera = camera;
 
             SetupTaskForUI();
-            HandlerEvents.ElementDied += AddScore;
+            HandlerEvents.OnElementDied += AddScore;
         }
 
-        private void OnDestroy() => HandlerEvents.ElementDied -= AddScore;
+        private void OnDestroy() => HandlerEvents.OnElementDied -= AddScore;
 
         public bool AddScore(ItemType itemType, Vector3 position, int level = 0)
         {
@@ -42,7 +42,7 @@ namespace Assets.Scipts.Levels
         {
             for (int i = 0; i < _scoreElements.Length; i++)
                 if (_scoreElements[i].CurrentScore != 0) return;
-            HandlerEvents.OnWin();
+            HandlerEvents.Win();
         }
 
         private IEnumerator AddScoreAnimation(ScoreElement scoreElement, Vector3 position)

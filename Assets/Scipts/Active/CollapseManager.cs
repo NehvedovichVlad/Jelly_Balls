@@ -48,7 +48,7 @@ namespace Assets.Scipts.Active
             }
             monoBeh.StartCoroutine(CollapseProcess(fromItem, toItem));
 
-            HandlerEvents.OnResetedLoseTimer();
+            HandlerEvents.ResetedLoseTimer();
         }
 
         private static IEnumerator CollapseProcess(ActiveItem fromItem, ActiveItem toItem)

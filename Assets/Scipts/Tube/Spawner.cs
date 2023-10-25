@@ -11,8 +11,8 @@ namespace Assets.Scipts.Tube
         private float _xPoisition;
         private float _oldMouseX;
 
-        private void Start() => HandlerEvents.Win += SpawnerEnabled;
-        private void OnDestroy() => HandlerEvents.Win -= SpawnerEnabled;
+        private void Start() => HandlerEvents.OnWin += SpawnerEnabled;
+        private void OnDestroy() => HandlerEvents.OnWin -= SpawnerEnabled;
 
         private void Update()
         {
