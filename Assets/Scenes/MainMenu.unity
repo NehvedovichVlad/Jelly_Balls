@@ -789,8 +789,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227d2312658f8354aab9d7edcae00488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Coins>k__BackingField: 50
-  <Level>k__BackingField: 1
+  <Coins>k__BackingField: 12
+  <Level>k__BackingField: 2
+  <IsMusicOn>k__BackingField: 0
 --- !u!4 &1368225720
 Transform:
   m_ObjectHideFlags: 0
@@ -837,7 +838,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinsText: {fileID: 844323396}
   _levelText: {fileID: 1766568151}
-  _progress: {fileID: 1368225719}
   _startButton: {fileID: 797504933}
 --- !u!4 &1595573088
 Transform:
